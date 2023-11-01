@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eventTracker</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="information">
+            <div id="totalhead">
+                <input type="text" placeholder="Enter Total Budget for this month" id="total" />
+            </div>
+
+            <div id="info">
+                <h3 id="totalinfo">Total:<span></span></h3>
+                <h3 id="spent">Spent:<span></span></h3>
+                <h3 id="remaining">Remaining:<span></span></h3>
+            </div>
+        </div>
+
+        <div id="enterExpense">
+            <form action="">
+                <input type="text" placeholder="Expense Detail" /><br />
+                <input type="text" placeholder="Expense Amount" /><br />
+                <button type="submit">Add Expense</button>
+            </form>
+        </div>
+
+        <div id="expenseTracker">
+            <table>
+                <tr>
+                    <th>S.No</th>
+                    <th>Info</th>
+                    <th>Amount</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const totalInput = document.getElementById("total");
+const totalInfo = document.getElementById("totalinfo");
+const spentInfo = document.getElementById("spent");
+const remainingInfo = document.getElementById("remaining");
+const form = document.querySelector("form");
+const table = document.querySelector("table");
+
+let totalBudget = 0;
+let totalExpense = 0;
+
+totalInput.addEventListener('input', function() {
+    totalBudget = parseInt(this.value) || 0;
+    totalInfo.textContent = 'Total: ' + totalBudget;
+    remainingInfo.textContent = 'Remaining: ' + (totalBudget - totalExpense);
+});
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    const expenseDetail = event.target[0].value;
+    const expenseAmount = parseInt(event.target[1].value) || 0; 
+    if (expenseAmount !== 0) { 
+        const newRow = document.createElement('tr'); 
+        const snoCell = document.createElement('td');
+        const detailCell = document.createElement('td'); 
+        const amountCell = document.createElement('td'); 
+        const rowCount = table.rows.length; 
+        snoCell.textContent = rowCount;
+        detailCell.textContent = expenseDetail; 
+        amountCell.textContent = expenseAmount;
+
+        newRow.appendChild(snoCell); 
+        newRow.appendChild(detailCell); 
+        newRow.appendChild(amountCell); 
+
+        table.appendChild(newRow); 
+
+        totalExpense += expenseAmount; 
+        spentInfo.textContent = 'Spent: ' + totalExpense; 
+        remainingInfo.textContent = 'Remaining: ' + (totalBudget - totalExpense); 
+
+        event.target[0].value = ''; 
+        event.target[1].value = ''; 
+    }
+});
+</script>
+</body>
+
+</html>
