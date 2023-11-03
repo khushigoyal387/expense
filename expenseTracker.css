@@ -19,3 +19,12 @@ table th, table td{
     text-align: center;
     padding: 0.5rem;
 }
+th {
+    border: 1px solid black;
+    text-align: center;
+    padding: 0.5rem;
+}
+/* #expenseTracke{
+   width: 100%;
+   border: 1px solid black;
+} */
